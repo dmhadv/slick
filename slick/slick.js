@@ -1865,7 +1865,7 @@
             breakpoint, currentBreakpoint, l,
             responsiveSettings = _.options.responsive || null;
 
-        if (typeof responsiveSettings === 'array' && responsiveSettings.length) {
+        if (__getClass(responsiveSettings) === 'Array' && responsiveSettings.length) {
 
             _.respondTo = _.options.respondTo || 'window';
 
@@ -2130,20 +2130,19 @@
             var _ = this,
                 l, item, option, value, refresh = false,
                 type;
-
-            if (typeof arguments[0] === 'object') {
+            if (__getClass(arguments[0]) === 'Object') {
 
                 option = arguments[0];
                 refresh = arguments[1];
                 type = 'multiple';
 
-            } else if (typeof arguments[0] === 'string') {
+            } else if (__getClass(arguments[0]) === 'String') {
 
                 option = arguments[0];
                 value = arguments[1];
                 refresh = arguments[2];
 
-                if (arguments[0] === 'responsive' && typeof arguments[1] === 'array') {
+                if (arguments[0] === 'responsive' && __getClass(arguments[1]) === 'Array') {
 
                     type = 'responsive';
 
@@ -2173,7 +2172,7 @@
 
                 for (item in value) {
 
-                    if (typeof _.options.responsive !== 'array') {
+                    if (__getClass(_.options.responsive) !== 'Array') {
 
                         _.options.responsive = [value[item]];
 
@@ -3016,3 +3015,8 @@
     };
 
 }));
+
+function __getClass(object) {
+    return Object.prototype.toString.call(object)
+        .match(/^\[object\s(.*)\]$/)[1];
+};
